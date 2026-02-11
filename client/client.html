@@ -68,21 +68,19 @@ const handleResponse = async (response, method) => {
       const age = nameForm.querySelector('#ageField').value;
       const method = userForm.querySelector('#methodSelect').value;
 
-      let formData = `name=${name}&age=${age}`;
-
-      formData = JSON.stringify({name, age});
+      let formData = JSON.stringify({name, age});
 
       const response = await fetch(url, {
         method: formMethod,
         headers: {
-          "Content-Type": 'application/json',
-          "Content-Length": formData.length,
+          'Content-Type': 'application/json',
+          'Content-Type': formData.length,
           'Accept': 'application/json',
         },
-        data: formData,
+        body: formData,
       });
 
-      handleResponse(request, method === 'get');
+      handleResponse(response, method === 'get');
     }
 
 

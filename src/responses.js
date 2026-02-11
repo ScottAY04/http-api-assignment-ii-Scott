@@ -38,7 +38,7 @@ const addUser = (request, response) => {
 
     //grabs the name and age out of the request's body
     //if one of them is missing it will be set to undefined
-    const { name, age } = request.data;
+    const { name, age } = request.body;
 
     //if either one is missing we will throw a 400 error message
     if(!name || !age){
