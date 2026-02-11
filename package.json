@@ -1,0 +1,18 @@
+{
+  "name": "http-api-assignment-ii-scott",
+  "version": "1.0.0",
+  "description": "class assignment learning head, get, and post",
+  "main": "./eslint.config.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Test Complete\""
+  },
+  "author": "Scott Au Yeung",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0"
+  }
+}
