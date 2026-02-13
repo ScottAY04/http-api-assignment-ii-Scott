@@ -10,7 +10,7 @@ const urlStruct = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getCSS, 
   '/getUsers': responseHandler.getUsers,
-  '/addUser': (request, response) => {parseBody(request, response, responseHandler.addUser(request, response))},
+  '/addUser': (request, response) => {parseBody(request, response, responseHandler.addUser)},
   notFound: responseHandler.notFound,
 };
 
