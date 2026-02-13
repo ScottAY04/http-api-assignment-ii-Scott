@@ -1,4 +1,5 @@
 const http = require('http');
+const query = require('querystring');
 const htmlHandler = require("./htmlResponses.js");
 const responseHandler = require("./responses.js");
 
@@ -9,9 +10,41 @@ const urlStruct = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getCSS, 
   '/getUsers': responseHandler.getUsers,
-  '/addUser': responseHandler.addUser,
+  '/addUser': (req, res) => parseBody(req, res, responseHandler.addUser(req, res)),
   notFound: responseHandler.notFound,
 };
+
+const parseBody = (request, response, handler) => {
+  const body = [];
+
+  request.on('error', (err) => {
+    console.dir(err);
+    response.statusCode = 400;
+    response.end();
+  });
+
+  request.on('data', (chunk) => {
+    console.log(chunk);
+    body.push(chunk);
+  });
+
+  request.on('end', () => {
+    const bodyString = Buffer.concat(body).toString();
+    const type = request.headers['content-type'];
+    if(type === 'application/x-www-form-urlencoded') {
+      request.body = query.parse(bodyString);
+    } else if (type === 'application/json') {
+      request.body = JSON.parse(bodyString);
+    } else {
+      response.writeHead(400, { 'Content-Type': 'application/json' });
+      response.write(JSON.stringify({ error: 'invalid data format' }));
+      return response.end();
+    }
+
+    handler(request, response);
+  });
+}
+
 
 //handle requests
 const onRequest = (request, response) => {
