@@ -10,7 +10,7 @@ const urlStruct = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getCSS, 
   '/getUsers': responseHandler.getUsers,
-  '/addUser': (req, res) => parseBody(req, res, responseHandler.addUser(req, res)),
+  '/addUser': (request, response) => {parseBody(request, response, responseHandler.addUser(request, response))},
   notFound: responseHandler.notFound,
 };
 
@@ -24,7 +24,6 @@ const parseBody = (request, response, handler) => {
   });
 
   request.on('data', (chunk) => {
-    console.log(chunk);
     body.push(chunk);
   });
 

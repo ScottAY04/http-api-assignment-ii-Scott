@@ -34,10 +34,12 @@ const handleResponse = async (response, method) => {
       //if it is a get then it will write out the response
       if(method === 'get'){
         const obj = await response.json();
+        let jsonString = JSON.stringify(obj);
 
         //prints everything out
-        content.innerHTML += `<p>${obj.message}</p>`;
-        console.log(obj);
+        content.innerHTML += `<p>${jsonString}</p>`;
+        console.log(jsonString);
+        console.log(obj.message);
       }else{
         //doesn't print out anything
       }
@@ -68,6 +70,7 @@ const handleResponse = async (response, method) => {
       const age = nameForm.querySelector('#ageField').value;
 
       let formData = JSON.stringify({name, age});
+      console.log(formData);
 
       let response = await fetch(url, {
         method: method,
