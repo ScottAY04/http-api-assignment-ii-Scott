@@ -18,6 +18,9 @@ const handleResponse = async (response, method) => {
         case 201:
           content.innerHTML = `<b>Created</b>`;
           break;
+        case 204:
+          content.innerHTML = `<b>Updated(No Content)</b>`;
+          break;
         case 400: 
           content.innerHTML = `<b>Bad Request</b>`;
           break;
@@ -29,16 +32,15 @@ const handleResponse = async (response, method) => {
           break;
       }
 
-
-
       //if it is a get then it will write out the response
-      if(method){
+      if(method && response.status !== 204){
         const obj = await response.json();
-        let jsonString = JSON.stringify(obj);
-
-        //prints everything out
-        content.innerHTML += `<p>${jsonString}</p>`;
-        console.log(jsonString);
+      
+      //If we have a message, display it.
+        if(obj.message){
+          content.innerHTML += `<p>${obj.message}</p>`;
+          console.log(obj);
+        };
       }else{
         //doesn't print out anything
       }
@@ -69,7 +71,6 @@ const handleResponse = async (response, method) => {
       const age = nameForm.querySelector('#ageField').value;
 
       let formData = JSON.stringify({name, age});
-      console.log(formData);
 
       let response = await fetch(url, {
         method: method,

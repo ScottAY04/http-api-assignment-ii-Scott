@@ -26,6 +26,7 @@ const respondData = (request, response, status, object) => {
 const getUsers = (request, response) =>{
     const responseJSON = {
         users,
+        message: `${JSON.stringify(users)}`,
     };
     return respondData(request, response, 200, responseJSON);
 };
@@ -58,14 +59,14 @@ const addUser = (request, response) => {
         };
     }
 
-      users[name].age = age;
+    users[name].age = age;
 
-      if(responseCode === 201){
+    if(responseCode === 201){
         responseJSON.message = 'Created Successfully';
         return respondData(request, response, responseCode, responseJSON);
-      }
+    }
     
-    return respondData(request,response, 201, {});
+    return respondData(request,response, responseCode, {});
 }
 
 
